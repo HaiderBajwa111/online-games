@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Game {
+  id                 Int      @id @default(autoincrement())
+  name               String
+  slug               String   @unique
+  description        String
+  image              String
+  iframeUrl          String
+  category           String
+  rating             Float?
+  metaTitle          String?
+  metaDescription    String?
+  metaKeywords       String?
+  metaOgTitle        String?
+  metaOgDescription  String?
+  imageAltText       String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  translations       GameTranslation[]
+}
+
+model GameTranslation {
+  id                Int      @id @default(autoincrement())
+  gameId            Int
+  game              Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  language          String   // e.g., "es", "fr", "de", "pt"
+  name              String
+  description       String
+  metaTitle         String?
+  metaDescription   String?
+  metaKeywords      String?
+  
+  @@unique([gameId, language])
+}
+
+model Admin {
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  hashedPassword String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}

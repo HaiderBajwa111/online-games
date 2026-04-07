@@ -4,7 +4,6 @@ export interface GameMeta {
   keywords: string;
   ogTitle?: string;
   ogDescription?: string;
-  ogImage?: string;
 }
 
 export interface Game {
