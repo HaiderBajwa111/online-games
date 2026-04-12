@@ -64,7 +64,7 @@ export default async function GamePage({ params }: GamePageProps) {
   const { slug, lang } = await params;
   const baseGame = await prisma.game.findUnique({
     where: { slug },
-    include: { translations: true }
+    include: { translations: true, category: true }
   });
   if (!baseGame) return notFound();
 
@@ -88,13 +88,13 @@ export default async function GamePage({ params }: GamePageProps) {
     description: stripHtml(game.description),
     image: game.image,
     url: `${SITE_URL}/${lang}/game/${slug}`,
-    genre: game.category,
+    genre: game.category?.name || 'Games',
     ...(game.rating ? { aggregateRating: { '@type': 'AggregateRating', ratingValue: game.rating, bestRating: 5, worstRating: 1, ratingCount: 5988 } } : {}),
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/${lang}` },
-        { '@type': 'ListItem', position: 2, name: game.category, item: `${SITE_URL}/${lang}` },
+        { '@type': 'ListItem', position: 2, name: game.category?.name || 'Games', item: `${SITE_URL}/${lang}/category/${game.category?.slug}` },
         { '@type': 'ListItem', position: 3, name: game.name, item: `${SITE_URL}/${lang}/game/${slug}` },
       ],
     },
