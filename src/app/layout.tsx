@@ -16,28 +16,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Poki - Play Free Online Games",
+  title: "Free Games - Play Free Online Games",
   description:
-    "Play the best free online games without downloading. Thousands of games to choose from!",
+    "Play the best free online games without downloading. Thousands of games to choose from on Free Games!",
   keywords: [
     "free games",
     "online games",
-    "game website",
+    "free online games",
     "play games online",
   ],
-  authors: [{ name: "Poki Games" }],
-  metadataBase: new URL("https://poki-games.com"),
+  authors: [{ name: "Free Games Team" }],
+  metadataBase: new URL("https://free-games.com"),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://poki-games.com",
-    siteName: "Poki Games",
-    title: "Poki - Play Free Online Games",
+    url: "https://free-games.com",
+    siteName: "Free Games",
+    title: "Free Games - Play Free Online Games",
     description: "Play the best free online games without downloading",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Poki - Play Free Online Games",
+    title: "Free Games - Play Free Online Games",
     description: "Play the best free online games without downloading",
   },
 };
@@ -60,7 +60,7 @@ export default function RootLayout({
     >
       <head>
         <meta charSet="utf-8" />
-        <link rel="canonical" href="https://poki-games.com" />
+        <link rel="canonical" href="https://freeonlinegames.us" />
       </head>
       <body suppressHydrationWarning className="min-h-screen flex flex-col bg-gray-50">
         <Header />

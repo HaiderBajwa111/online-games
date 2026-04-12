@@ -17,6 +17,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     <h2 className="text-lg font-bold mb-4">Admin Panel</h2>
                     <ul className="space-y-2">
                         <li><a href="/admin" className="block py-2 px-4 hover:bg-gray-700 rounded">Dashboard</a></li>
+                        <li><a href="/admin/categories" className="block py-2 px-4 hover:bg-gray-700 rounded">Categories</a></li>
                         <li><a href="/admin/add" className="block py-2 px-4 hover:bg-gray-700 rounded">Add Game</a></li>
                     </ul>
                 </div>

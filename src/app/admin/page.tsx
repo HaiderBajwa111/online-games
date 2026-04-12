@@ -14,7 +14,8 @@ type Game = {
   name: string;
   slug: string;
   description: string;
-  category: string;
+  categoryId: number;
+  category: { id: number; name: string; slug: string; };
   image: string;
   iframeUrl: string;
   metaTitle: string;
@@ -27,6 +28,7 @@ type Game = {
 
 export default function AdminPage() {
   const [games, setGames] = useState<Game[]>([]);
+  const [categories, setCategories] = useState<{id:number, name:string}[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [gameToDelete, setGameToDelete] = useState<Game | null>(null);
@@ -39,7 +41,10 @@ export default function AdminPage() {
     setLoading(true);
     const res = await fetch('/api/games');
     const json = await res.json();
-    setGames(json);
+    setGames(Array.isArray(json) ? json : []);
+    const catRes = await fetch('/api/categories');
+    const catJson = await catRes.json();
+    setCategories(Array.isArray(catJson) ? catJson : []);
     setLoading(false);
   }
 
@@ -94,7 +99,7 @@ export default function AdminPage() {
           image: gameToEdit?.image,
           imageAltText: gameToEdit?.imageAltText,
           iframeUrl: gameToEdit?.iframeUrl,
-          category: gameToEdit?.category,
+          categoryId: String(gameToEdit?.categoryId),
           meta: {
             title: gameToEdit?.metaTitle,
             description: gameToEdit?.metaDescription,
@@ -126,24 +131,24 @@ export default function AdminPage() {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <table className="w-full table-auto bg-white rounded shadow">
-            <thead className="text-left">
+          <table className="w-full table-auto bg-slate-800 rounded shadow text-slate-100">
+            <thead className="text-left bg-slate-700">
               <tr>
-                <th className="px-4 py-2">ID</th>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Category</th>
-                <th className="px-4 py-2">Actions</th>
+                <th className="px-4 py-2 text-slate-300">ID</th>
+                <th className="px-4 py-2 text-slate-300">Name</th>
+                <th className="px-4 py-2 text-slate-300">Category</th>
+                <th className="px-4 py-2 text-slate-300">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {games.map((g) => (
-                <tr key={g.id} className="border-t">
-                  <td className="px-4 py-2">{g.id}</td>
+              {Array.isArray(games) && games.map((g) => (
+                <tr key={g.id} className="border-t border-slate-600 hover:bg-slate-700/50">
+                  <td className="px-4 py-2 text-slate-300">{g.id}</td>
                   <td className="px-4 py-2">{g.name}</td>
-                  <td className="px-4 py-2">{g.category}</td>
+                  <td className="px-4 py-2 text-slate-300">{g.category?.name}</td>
                   <td className="px-4 py-2">
-                    <button className="text-sm text-cyan-600 mr-2" onClick={() => openEditModal(g)}>Edit</button>
-                    <button className="text-sm text-red-600" onClick={() => openDeleteModal(g)}>Delete</button>
+                    <button className="text-sm text-cyan-400 mr-2 hover:text-cyan-300" onClick={() => openEditModal(g)}>Edit</button>
+                    <button className="text-sm text-red-400 hover:text-red-300" onClick={() => openDeleteModal(g)}>Delete</button>
                   </td>
                 </tr>
               ))}
@@ -177,43 +182,43 @@ export default function AdminPage() {
         overlayClassName="overlay"
       >
         <h2 className="text-2xl font-bold mb-4">Edit Game</h2>
-        <form onSubmit={(e) => { e.preventDefault(); confirmEdit(); }} className="space-y-4 bg-gray-100 p-6 rounded-lg shadow-md">
+        <form onSubmit={(e) => { e.preventDefault(); confirmEdit(); }} className="space-y-4 bg-slate-800 p-6 rounded-lg shadow-md">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+            <label htmlFor="name" className="block text-sm font-medium text-slate-300">Name</label>
             <input
               id="name"
               name="name"
               placeholder="Name"
               value={editedName}
               onChange={(e) => setEditedName(e.target.value)}
-              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              className="w-full border border-slate-600 bg-slate-700 text-slate-100 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder-slate-400"
             />
           </div>
           <div>
-            <label htmlFor="slug" className="block text-sm font-medium text-gray-700">Slug</label>
+            <label htmlFor="slug" className="block text-sm font-medium text-slate-300">Slug</label>
             <input
               id="slug"
               name="slug"
               placeholder="Slug"
               value={gameToEdit?.slug || ''}
               onChange={(e) => setGameToEdit(prev => prev ? { ...prev, slug: e.target.value } : null)}
-              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              className="w-full border border-slate-600 bg-slate-700 text-slate-100 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder-slate-400"
             />
           </div>
           <div>
-            <label htmlFor="iframeUrl" className="block text-sm font-medium text-gray-700">Iframe URL</label>
+            <label htmlFor="iframeUrl" className="block text-sm font-medium text-slate-300">Iframe URL</label>
             <input
               id="iframeUrl"
               name="iframeUrl"
               placeholder="Iframe URL"
               value={gameToEdit?.iframeUrl || ''}
               onChange={(e) => setGameToEdit(prev => prev ? { ...prev, iframeUrl: e.target.value } : null)}
-              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              className="w-full border border-slate-600 bg-slate-700 text-slate-100 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder-slate-400"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-            <div className="bg-white">
+            <div className="bg-slate-700 rounded">
               <ReactQuill
                 theme="snow"
                 value={gameToEdit?.description || ''}
@@ -223,7 +228,7 @@ export default function AdminPage() {
             </div>
           </div>
           <div>
-            <label htmlFor="imageUpload" className="block text-sm font-medium text-gray-700">Upload New Image</label>
+            <label htmlFor="imageUpload" className="block text-sm font-medium text-slate-300">Upload New Image</label>
             <input
               id="imageUpload"
               type="file"
@@ -252,31 +257,33 @@ export default function AdminPage() {
                 }
                 setUploading(false);
               }}
-              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              className="w-full border border-slate-600 bg-slate-700 text-slate-100 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder-slate-400"
             />
-            {uploading && <p className="text-sm text-gray-500">Uploading...</p>}
+            {uploading && <p className="text-sm text-slate-400">Uploading...</p>}
           </div>
           <div>
-            <label htmlFor="imageAltText" className="block text-sm font-medium text-gray-700">Image Alt Text</label>
+            <label htmlFor="imageAltText" className="block text-sm font-medium text-slate-300">Image Alt Text</label>
             <input
               id="imageAltText"
               name="imageAltText"
               placeholder="Image Alt Text"
               value={gameToEdit?.imageAltText || ''}
               onChange={(e) => setGameToEdit(prev => prev ? { ...prev, imageAltText: e.target.value } : null)}
-              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500"
+              className="w-full border border-slate-600 bg-slate-700 text-slate-100 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder-slate-400"
             />
           </div>
           <div>
-            <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
-            <input
-              id="category"
-              name="category"
-              placeholder="Category"
-              value={gameToEdit?.category || ''}
-              onChange={(e) => setGameToEdit(prev => prev ? { ...prev, category: e.target.value } : null)}
-              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500"
-            />
+            <label htmlFor="categoryId" className="block text-sm font-medium text-slate-300">Category</label>
+            <select
+              id="categoryId"
+              name="categoryId"
+              value={gameToEdit?.categoryId || ''}
+              onChange={(e) => setGameToEdit(prev => prev ? { ...prev, categoryId: Number(e.target.value) } : null)}
+              className="w-full border border-slate-600 bg-slate-700 text-slate-100 p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder-slate-400"
+            >
+              <option value="">Select Category...</option>
+              {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+            </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Keywords</label>

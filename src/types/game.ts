@@ -13,7 +13,8 @@ export interface Game {
   description: string;
   image: string;
   iframeUrl: string;
-  category: string;
+  categoryId: number;
+  category: { id: number; name: string; slug: string; };
   rating?: number;
   meta: GameMeta;
   createdAt: string;

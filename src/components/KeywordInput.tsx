@@ -38,14 +38,14 @@ export default function KeywordInput({ value, onChange, placeholder }: KeywordIn
     };
 
     return (
-        <div className="w-full border border-gray-300 p-2 rounded focus-within:ring-2 focus-within:ring-cyan-500 bg-white min-h-[42px] flex flex-wrap gap-2 items-center">
+        <div className="w-full border border-slate-600 p-2 rounded focus-within:ring-2 focus-within:ring-cyan-500 bg-slate-700 min-h-[42px] flex flex-wrap gap-2 items-center">
             {keywords.map((keyword, i) => (
-                <span key={`${keyword}-${i}`} className="bg-cyan-100 text-cyan-800 px-2.5 py-1 rounded-full text-sm flex items-center gap-1.5 shadow-sm border border-cyan-200">
+                <span key={`${keyword}-${i}`} className="bg-cyan-900 text-cyan-100 px-2.5 py-1 rounded-full text-sm flex items-center gap-1.5 shadow-sm border border-cyan-700">
                     {keyword}
                     <button
                         type="button"
                         onClick={() => removeKeyword(keyword)}
-                        className="text-cyan-600 hover:text-cyan-900 hover:bg-cyan-200 rounded-full w-4 h-4 flex items-center justify-center font-bold focus:outline-none transition-colors"
+                        className="text-cyan-400 hover:text-cyan-100 hover:bg-cyan-800 rounded-full w-4 h-4 flex items-center justify-center font-bold focus:outline-none transition-colors"
                         title="Remove keyword"
                     >
                         &times;
@@ -58,7 +58,7 @@ export default function KeywordInput({ value, onChange, placeholder }: KeywordIn
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={keywords.length === 0 ? placeholder : ''}
-                className="flex-1 min-w-[120px] outline-none text-sm bg-transparent"
+                className="flex-1 min-w-[120px] outline-none text-sm bg-transparent text-slate-100 placeholder-slate-400"
             />
         </div>
     );

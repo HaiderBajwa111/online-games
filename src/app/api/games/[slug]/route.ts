@@ -66,7 +66,7 @@ export async function PUT(
     if (body.description) data.description = body.description;
     if (body.image) data.image = body.image;
     if (body.iframeUrl) data.iframeUrl = body.iframeUrl;
-    if (body.category) data.category = body.category;
+    if (body.categoryId) data.categoryId = parseInt(body.categoryId, 10);
     if (body.rating !== undefined) data.rating = Number(body.rating);
     if (body.meta) {
       data.metaTitle = body.meta.title;

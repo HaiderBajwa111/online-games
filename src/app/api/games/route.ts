@@ -5,9 +5,17 @@ import { autoTranslateGame } from '@/lib/translate';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'devsecret';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const games = await prisma.game.findMany({ orderBy: { createdAt: 'desc' } });
+    const url = new URL(request.url);
+    const categorySlug = url.searchParams.get('categorySlug');
+    const where = categorySlug ? { category: { slug: categorySlug } } : {};
+    
+    const games = await prisma.game.findMany({ 
+      where,
+      include: { category: true },
+      orderBy: { createdAt: 'desc' } 
+    });
     return NextResponse.json(games);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch games' }, { status: 500 });
@@ -53,7 +61,7 @@ export async function POST(request: NextRequest) {
         description: body.description,
         image: body.image,
         iframeUrl: body.iframeUrl,
-        category: body.category || 'Other',
+        categoryId: parseInt(body.categoryId, 10),
         rating: body.rating ? Number(body.rating) : undefined,
         metaTitle: body.meta?.title,
         metaDescription: body.meta?.description,
