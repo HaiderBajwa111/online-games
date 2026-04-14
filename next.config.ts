@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   images: {
     domains: [],
+    unoptimized: true,
   },
 };
 
