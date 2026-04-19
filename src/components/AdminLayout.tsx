@@ -19,6 +19,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         <li><a href="/admin" className="block py-2 px-4 hover:bg-gray-700 rounded">Dashboard</a></li>
                         <li><a href="/admin/categories" className="block py-2 px-4 hover:bg-gray-700 rounded">Categories</a></li>
                         <li><a href="/admin/add" className="block py-2 px-4 hover:bg-gray-700 rounded">Add Game</a></li>
+                        <li><a href="/admin/media" className="block py-2 px-4 hover:bg-gray-700 rounded">Media</a></li>
                     </ul>
                 </div>
             )}

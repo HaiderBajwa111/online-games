@@ -3,10 +3,6 @@
 import { useState, useEffect } from 'react';
 import AdminLayout from '@/components/AdminLayout';
 import KeywordInput from '@/components/KeywordInput';
-import dynamic from 'next/dynamic';
-import 'react-quill-new/dist/quill.snow.css';
-
-const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 export default function AddGame() {
   const [form, setForm] = useState({
@@ -74,9 +70,14 @@ export default function AddGame() {
         <form onSubmit={onSubmit} className="space-y-4 bg-slate-800 p-4 rounded">
           <input name="name" placeholder="Name" value={form.name} onChange={handleChange} className="w-full border border-slate-600 bg-slate-700 text-slate-100 p-2 rounded placeholder-slate-400" />
           <input name="slug" placeholder="Slug (optional)" value={form.slug} onChange={handleChange} className="w-full border p-2 mt-2 mb-4" />
-          <div className="bg-slate-700 rounded">
-            <ReactQuill theme="snow" value={form.description} onChange={(val: string) => setForm(p => ({ ...p, description: val }))} placeholder="Rich Text Description..." className="h-48 mb-12" />
-          </div>
+          <textarea
+            name="description"
+            placeholder="Paste HTML here..."
+            value={form.description}
+            onChange={handleChange}
+            rows={10}
+            className="w-full border border-slate-600 bg-slate-700 text-slate-100 p-2 rounded placeholder-slate-400 font-mono text-sm resize-y"
+          />
           <div>
             <label className="block mb-1 text-slate-300">Image (URL or upload)</label>
             <input name="image" placeholder="Image URL" value={form.image} onChange={handleChange} className="w-full border p-2 mb-2" />

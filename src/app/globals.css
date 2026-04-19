@@ -48,3 +48,16 @@ body {
   box-shadow: 0 20px 25px -5px var(--bubble-glow),
     0 0 15px 5px var(--bubble-glow);
 }
+
+/* Restore browser-like heading hierarchy inside HTML content areas */
+.html-content h1 { font-size: 2rem;    font-weight: 700; margin: 1.25rem 0 0.75rem; }
+.html-content h2 { font-size: 1.5rem;  font-weight: 700; margin: 1rem 0 0.5rem; }
+.html-content h3 { font-size: 1.25rem; font-weight: 600; margin: 0.875rem 0 0.5rem; }
+.html-content h4 { font-size: 1.1rem;  font-weight: 600; margin: 0.75rem 0 0.25rem; }
+.html-content p  { margin-bottom: 1rem; }
+.html-content ul { list-style: disc;   padding-left: 1.5rem; margin-bottom: 1rem; }
+.html-content ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
+.html-content li { margin-bottom: 0.25rem; }
+.html-content a  { color: #06b6d4; text-decoration: underline; }
+.html-content strong { font-weight: 700; }
+.html-content blockquote { border-left: 4px solid #06b6d4; padding-left: 1rem; font-style: italic; color: #6b7280; }

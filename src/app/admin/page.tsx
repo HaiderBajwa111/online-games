@@ -1,13 +1,9 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from "react-modal";
 import AdminLayout from "@/components/AdminLayout";
 import KeywordInput from "@/components/KeywordInput";
-import dynamic from 'next/dynamic';
-import "react-quill-new/dist/quill.snow.css";
 import "./styles/modal.css";
-
-const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 type Game = {
   id: string;
@@ -217,15 +213,14 @@ export default function AdminPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-            <div className="bg-slate-700 rounded">
-              <ReactQuill
-                theme="snow"
-                value={gameToEdit?.description || ''}
-                onChange={(val: string) => setGameToEdit(prev => prev ? { ...prev, description: val } : null)}
-                className="h-48 mb-12 border-gray-300"
-              />
-            </div>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Description (HTML)</label>
+            <textarea
+              value={gameToEdit?.description || ''}
+              onChange={(e) => setGameToEdit(prev => prev ? { ...prev, description: e.target.value } : null)}
+              rows={10}
+              placeholder="Paste HTML here..."
+              className="w-full border border-slate-600 bg-slate-700 text-slate-100 p-2 rounded font-mono text-sm resize-y placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            />
           </div>
           <div>
             <label htmlFor="imageUpload" className="block text-sm font-medium text-slate-300">Upload New Image</label>

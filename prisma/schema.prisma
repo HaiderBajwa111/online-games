@@ -50,6 +50,15 @@ model Admin {
   updatedAt      DateTime @updatedAt
 }
 
+model Media {
+  id        Int      @id @default(autoincrement())
+  filename  String
+  path      String
+  altText   String?
+  size      Int?
+  createdAt DateTime @default(now())
+}
+
 model Category {
   id        Int      @id @default(autoincrement())
   name      String   @unique

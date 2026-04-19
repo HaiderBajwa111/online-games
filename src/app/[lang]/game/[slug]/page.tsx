@@ -121,7 +121,7 @@ export default async function GamePage({ params }: GamePageProps) {
           </div>
           <div className="text-center text-sm text-gray-500 my-4 mb-8">Ad Powered by Advergic.com</div>
           <div className="prose max-w-none bg-white p-6 rounded-lg shadow-sm break-words overflow-hidden">
-            <div className="text-gray-700 [&_p]:mb-4 [&_p]:whitespace-normal [&_p]:break-words [&_ul]:list-disc [&_ul]:ml-6 [&_ol]:list-decimal [&_ol]:ml-6 [&_a]:text-cyan-600 [&_strong]:font-bold leading-relaxed w-full" dangerouslySetInnerHTML={{ __html: game.description }} />
+            <div className="html-content text-gray-700 leading-relaxed w-full break-words" dangerouslySetInnerHTML={{ __html: game.description }} />
           </div>
         </div>
 
