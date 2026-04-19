@@ -15,7 +15,6 @@ export default function Header() {
     : 'en';
 
   const isHomePage = pathname === '/' || /^\/(?:en|es|fr|de|pt)\/?$/.test(pathname);
-  const isAdminPage = pathname.startsWith('/admin');
 
   return (
     <header className="sticky top-0 z-50 bg-gradient-to-r from-violet-600 via-fuchsia-500 to-pink-500 shadow-lg shadow-fuchsia-500/30 border-b-2 border-white/10">
@@ -47,16 +46,6 @@ export default function Header() {
               }`}
             >
               Categories
-            </Link>
-            <Link
-              href="/admin"
-              className={`px-2 sm:px-4 py-1.5 rounded-full font-bold text-xs sm:text-sm transition-all duration-200 ${
-                isAdminPage
-                  ? 'bg-white text-fuchsia-600 shadow-md shadow-white/20'
-                  : 'text-white hover:bg-white/20'
-              }`}
-            >
-              Admin
             </Link>
             <LanguageSelector />
           </nav>

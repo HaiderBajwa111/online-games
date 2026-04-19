@@ -46,7 +46,7 @@ export default function GameIframe({ src, title, image }: GameIframeProps) {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full overflow-hidden bg-gray-900 shadow-lg ${isFullscreen ? 'h-screen' : 'aspect-video rounded-lg'
+      className={`relative w-full h-full overflow-hidden bg-gray-900 shadow-lg ${isFullscreen ? 'h-screen' : 'aspect-video rounded-lg'
         }`}
     >
       {!hasStarted ? (
