@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CleanupInjectedAttributes from "@/components/CleanupInjectedAttributes";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,6 +62,13 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <link rel="canonical" href="https://freeonlinegames.us" />
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-QLS6XLSWL6" />
+        <Script id="gtag-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-QLS6XLSWL6');
+        `}</Script>
       </head>
       <body suppressHydrationWarning className="min-h-screen flex flex-col bg-gray-50">
         <Header />
